@@ -13,7 +13,7 @@ import java.util.UUID
 @Entity
 class Client(
     @Id
-    var id: UUID,
+    var id: UUID?,
 
     @Column
     var clientName: String,
@@ -31,13 +31,13 @@ class Client(
     var isAllowed: Boolean,
 
     @ManyToOne
-    var user: User,
+    var user: User?,
 ) {
 
     @PrePersist
     private fun init() {
         id = UUID.randomUUID()
-        clientId = clientName + user.id
+        clientId = clientName +"_"+ UUID.randomUUID()
         secretKey = id.toString() + LocalTime.now().toString();
     }
 }
